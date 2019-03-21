@@ -1,3 +1,7 @@
 body {
     background-color: azure;
 }
+
+#firstYearForm {
+    display: none;
+}
