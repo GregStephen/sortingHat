@@ -3,7 +3,7 @@ const firstYearForm = document.getElementById("firstYearForm");
 let studentNameForm = document.getElementById("studentName");
 const sortBtn = document.getElementById("sortBtn");
 const houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
-let student = {};
+
 const studentCards = [];
 
 //////////////// Event Listeners ///////////////
@@ -16,10 +16,11 @@ startSortBtn.addEventListener('click', function(e){
 sortBtn.addEventListener('click', function(e){
     e.preventDefault();
     firstYearForm.style.display = "none";
-    createStudentObject(studentNameForm.value);
+    let student = createStudentObject(studentNameForm.value);
     studentCards.unshift(student);
     console.log(studentCards);
     createStudentCard(studentCards);
+
 });
 
 
@@ -33,24 +34,28 @@ const printToDom = (divId, textToPrint) => {
 const getRandomNum = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
 };
+
 console.log(getRandomNum(3));
 console.log(houses[getRandomNum(3)]);
 
 const createStudentObject = (name) => {
+    let student = {};
     let house = houses[getRandomNum(3)];
     student.name = name;
     student.house = house;
     student.isExpelled = false;
-    
+    return student;
 };
 
 const createStudentCard = (array) => {
     let domString = '';
     array.forEach(student => {
-        domString += `<div>`;
-        domString += `<h2>${student.name}</h2>`;
-        domString += `<h2>${student.house}</h2>`;
-        domString += `<h2>${student.isExpelled}</h2>`;
+        domString += `<div class="card col-3">`;
+        domString +=    `<div class="card-body">`
+        domString +=        `<h3 class="card-title">${student.name}</h3>`;
+        domString +=        `<h4 class="card-text">${student.house}</h4>`;
+        domString +=        `<a href="#" class="btn btn-light">Expell</a>`;
+        domString +=    `</div>`;
         domString += `</div>`;
     });
     printToDom("studentCards", domString);
