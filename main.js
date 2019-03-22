@@ -18,17 +18,16 @@ startSortBtn.addEventListener('click', function(e){
 });
 
 sortBtn.addEventListener('click', function(e){
+    // checks to see if the input is not empty
     if (form.checkValidity()){
         e.preventDefault();
         e.stopPropagation();
-        firstYearForm.style.display = "none";
-        studentNameForm.placeholder = "Neville Longbottom";
-        studentNameForm.classList.remove("error");
         let student = createStudentObject(studentNameForm.value);
-        studentNameForm.value = "";
+        resetInputField();
         studentCards.unshift(student);
         console.log(studentCards);
         createStudentCard(studentCards);
+        // adds an eventListener to each newly created expel button
         for (const expelBtn of expelBtns) {
             expelBtn.addEventListener('click', function(e){
                 e.preventDefault();
@@ -57,6 +56,13 @@ const getRandomNum = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
 };
 
+const resetInputField = () => {
+    firstYearForm.style.display = "none";
+    studentNameForm.placeholder = "Neville Longbottom";
+    studentNameForm.classList.remove("error");
+    studentNameForm.value = "";
+}; 
+
 console.log(getRandomNum(3));
 console.log(houses[getRandomNum(3)]);
 
@@ -80,7 +86,7 @@ const createStudentCard = (array) => {
         domString += `</div>`;
     });
     printToDom("studentCards", domString);
-}
+};
 
 const expel = (studentId) => {
     console.log("studentId:", studentId )
@@ -94,20 +100,4 @@ const expel = (studentId) => {
     let expelledStudent = document.getElementById(studentId);
     expelledStudent.style.display = "none";
     alert(`"${studentId} has been expelled from Hoggy Hoggy Warts!"`)
-
-}
-
-
-// form.addEventListener("submit", function (event) {
-//     // Each time the user tries to send the data, we check
-//     // if the email field is valid.
-//     if (!studentNameForm.validity.valid) {
-      
-//       // If the field is not valid, we display a custom
-//       // error message.
-//       error.innerHTML = "I expect an e-mail, darling!";
-//       error.className = "error active";
-//       // And we prevent the form from being sent by canceling the event
-//       event.preventDefault();
-//     }
-//   }, false);
+};
