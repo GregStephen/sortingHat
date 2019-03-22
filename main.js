@@ -1,6 +1,8 @@
 const startSortBtn = document.getElementById("startSortBtn");
 const sortBtn = document.getElementById("sortBtn");
 const expelBtns = document.getElementsByClassName("expelBtn");
+const form = document.getElementById("studentForm");
+const error = document.getElementById("error");
 const firstYearForm = document.getElementById("firstYearForm");
 let studentNameForm = document.getElementById("studentName");
 const houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
@@ -16,21 +18,29 @@ startSortBtn.addEventListener('click', function(e){
 });
 
 sortBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    firstYearForm.style.display = "none";
-    let student = createStudentObject(studentNameForm.value);
-    studentNameForm.value = "";
-    studentCards.unshift(student);
-    console.log(studentCards);
-    createStudentCard(studentCards);
-    for (const expelBtn of expelBtns) {
-        expelBtn.addEventListener('click', function(e){
-            e.preventDefault();
-            let expelledStudent = this.parentElement.parentElement.id;
-            console.log("expel", this.parentElement.parentElement.id);
-            expel(expelledStudent);
-            firstYearForm.style.display = "block";
-        } )
+    if (form.checkValidity()){
+        e.preventDefault();
+        e.stopPropagation();
+        firstYearForm.style.display = "none";
+        studentNameForm.placeholder = "Neville Longbottom";
+        studentNameForm.classList.remove("error");
+        let student = createStudentObject(studentNameForm.value);
+        studentNameForm.value = "";
+        studentCards.unshift(student);
+        console.log(studentCards);
+        createStudentCard(studentCards);
+        for (const expelBtn of expelBtns) {
+            expelBtn.addEventListener('click', function(e){
+                e.preventDefault();
+                let expelledStudent = this.parentElement.parentElement.id;
+                console.log("expel", this.parentElement.parentElement.id);
+                expel(expelledStudent);
+                firstYearForm.style.display = "block";
+            })
+        } 
+    }else {
+        studentNameForm.className += " error";
+        studentNameForm.placeholder = "Please Enter A Name"
     }
 });
 
@@ -86,3 +96,18 @@ const expel = (studentId) => {
     alert(`"${studentId} has been expelled from Hoggy Hoggy Warts!"`)
 
 }
+
+
+// form.addEventListener("submit", function (event) {
+//     // Each time the user tries to send the data, we check
+//     // if the email field is valid.
+//     if (!studentNameForm.validity.valid) {
+      
+//       // If the field is not valid, we display a custom
+//       // error message.
+//       error.innerHTML = "I expect an e-mail, darling!";
+//       error.className = "error active";
+//       // And we prevent the form from being sent by canceling the event
+//       event.preventDefault();
+//     }
+//   }, false);

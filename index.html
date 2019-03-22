@@ -21,9 +21,15 @@
     <div id="firstYearForm">
         <h2>Enter First Year's Name</h2>
         <div>
-            <label for="studentName">Student:</label>
-            <input id="studentName" type="text" placeholder="Neville Longbottom">
-            <button type="button" id="sortBtn" class="btn btn-light btn-sm">Sort!</button>
+            <form action="GET" id="studentForm">
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="studentName">Student:</label>
+                        <input id="studentName" type="text" name="studentName" placeholder="Neville Longbottom" required>
+                        <button type="button" id="sortBtn" class="btn btn-light btn-sm">Sort!</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="container">
