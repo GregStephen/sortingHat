@@ -4,6 +4,28 @@ body {
 
 #firstYearForm {
     display: none;
+    border: 2px solid black;
+    border-radius: 2.5%;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 2em;
+    background-color: white;
+    padding-bottom: 2em;
+    padding-top: 1em;
+}
+#enterNameH2 {
+    margin-bottom: 2em;
+}
+
+#sortBtn {
+    width: 100%;
+    border: 2px solid black;
+    font-weight: bold;
+}
+
+#studentName {
+    border: 2px solid black;
+    margin-bottom: 2em;
 }
 
 .error{ 
@@ -11,4 +33,17 @@ body {
     background-color: #FDD;
   }
   
+.card {
+    text-align: center;
+    border: 2px solid black;
+    margin-bottom: 2em;
+}
+
+.expelBtn {
+    width: 40%;
+    border: 2px solid black;
+    font-weight: bold;
+    background-color: rgb(219, 217, 217);
+    
+}
 

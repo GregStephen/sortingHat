@@ -15,6 +15,7 @@ const expelledStudents = [];
 startSortBtn.addEventListener('click', function(e){
     e.preventDefault();
     firstYearForm.style.display = "block";
+    // firstYearForm.scrollIntoView(false);
 });
 
 sortBtn.addEventListener('click', function(e){
@@ -77,11 +78,13 @@ const createStudentObject = (name) => {
 const createStudentCard = (array) => {
     let domString = '';
     array.forEach(student => {
-        domString += `<div id="${student.name}" class="card col-4">`;
-        domString +=    `<div class="card-body">`
-        domString +=        `<h3 class="card-title">${student.name}</h3>`;
-        domString +=        `<h4 class="card-text">${student.house}</h4>`;
-        domString +=        `<a href="#" class="btn btn-light expelBtn">Expel</a>`;
+        domString += `<div class="col-12 col-sm-6 col-lg-4">`;
+        domString +=    `<div id="${student.name}" class="card">`;
+        domString +=        `<div class="card-body">`
+        domString +=            `<h2 class="card-title">${student.name}</h2>`;
+        domString +=            `<h4 class="card-text">${student.house}</h4>`;
+        domString +=            `<a href="#" class="btn col-sm-6 btn-light expelBtn">Expel</a>`;
+        domString +=        `</div>`;
         domString +=    `</div>`;
         domString += `</div>`;
     });

@@ -14,23 +14,25 @@
         <p class="lead">Scintillation protego imperio portus. Leviosa prior apparate evanesco mortis ennervate sonorus reducio expecto lacarnum hover. Specialis mortis protean funnunculus patronum evanesco petrificus rictusempra. Protego expelliarumus leviosa imperio babbling sonorus legilimens engorgio pepperup. Engorgio tarantallegra unction evanesco confundus stupefy locomotor petrificus. Unbreakable evanesco expecto quietus expecto. Legilimens aparecium protego aresto.</p>
         <hr class="my-4">
         <p>Alohamora wand elf parchment, Wingardium Leviosa hippogriff, house dementors betrayal. Holly, Snape centaur</p>
-        <a class="btn btn-primary btn-lg" id="startSortBtn" href="#" role="button">Let's start sorting!</a>
+        <a class="btn btn-primary btn-lg" id="startSortBtn" href="#firstYearForm" role="button">Let's start sorting!</a>
     </div>
 
 
-    <div id="firstYearForm">
-        <h2>Enter First Year's Name</h2>
-        <div>
-            <form action="GET" id="studentForm">
-                <div class="form-row">
-                    <div class="col-md-4 mb-3">
-                        <label for="studentName">Student:</label>
-                        <input id="studentName" type="text" name="studentName" placeholder="Neville Longbottom" required>
-                        <button type="button" id="sortBtn" class="btn btn-light btn-sm">Sort!</button>
-                    </div>
+    <div id="firstYearForm" class="col-12 col-md-8 offset-md-2">
+        <h2 id="enterNameH2">Enter First Year's Name</h2>
+        <form action="GET" id="studentForm">
+            <div class="form-row inputs">
+                <div class="col-3 col-md-2 offset-1 offset-md-3">
+                    <label for="studentName">Student:</label>
                 </div>
-            </form>
-        </div>
+                <div class="col-5 col-md-3 offset-md-0">
+                    <input id="studentName" type="text" name="studentName" placeholder="Neville Longbottom" required>
+                </div>
+                <div class="col-3 col-md-2 offset-4 offset-md-1">
+                    <button type="button" id="sortBtn" class="btn btn-light btn-sm">Sort!</button>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="container">
         <div id="studentCards" class="row">
