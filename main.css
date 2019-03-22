@@ -5,3 +5,10 @@ body {
 #firstYearForm {
     display: none;
 }
+
+.error{ 
+    border-color: #900;
+    background-color: #FDD;
+  }
+  
+
