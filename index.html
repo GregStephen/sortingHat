@@ -20,15 +20,15 @@
 
     <div id="firstYearForm" class="col-12 col-md-8 offset-md-2">
         <h2 id="enterNameH2">Enter First Year's Name</h2>
-        <form action="GET" id="studentForm">
+        <form action="GET" id="studentForm" onkeypress="return event.keyCode != 13;">
             <div class="form-row inputs">
-                <div class="col-3 col-md-2 offset-1 offset-md-3">
+                <div class="col-3 col-md-2 offset-1 offset-md-2">
                     <label for="studentName">Student:</label>
                 </div>
-                <div class="col-5 col-md-3 offset-md-0">
+                <div class="col-5 col-md-3">
                     <input id="studentName" type="text" name="studentName" placeholder="Neville Longbottom" required>
                 </div>
-                <div class="col-3 col-md-2 offset-4 offset-md-1">
+                <div class="col-3 col-md-2 offset-4 offset-md-2">
                     <button type="button" id="sortBtn" class="btn btn-light btn-sm">Sort!</button>
                 </div>
             </div>
