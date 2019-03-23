@@ -64,12 +64,12 @@ const resetInputField = () => {
     studentNameForm.value = "";
 }; 
 
-console.log(getRandomNum(3));
-console.log(houses[getRandomNum(3)]);
+console.log(getRandomNum(4));
+console.log(houses[getRandomNum(4)]);
 
 const createStudentObject = (name) => {
     let student = {};
-    let house = houses[getRandomNum(3)];
+    let house = houses[getRandomNum(4)];
     student.name = name;
     student.house = house;
     return student;
@@ -80,7 +80,7 @@ const createStudentCard = (array) => {
     array.forEach(student => {
         domString += `<div class="col-12 col-sm-6 col-lg-4">`;
         domString +=    `<div id="${student.name}" class="card">`;
-        domString +=        `<div class="card-body">`
+        domString +=        `<div class="card-body ${student.house.toLowerCase()}">`;
         domString +=            `<h2 class="card-title">${student.name}</h2>`;
         domString +=            `<h4 class="card-text">${student.house}</h4>`;
         domString +=            `<a href="#" class="btn col-sm-6 btn-light expelBtn">Expel</a>`;
