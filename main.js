@@ -8,6 +8,7 @@ let studentNameForm = document.getElementById("studentName");
 const houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
 const studentCards = [];
 const expelledStudents = [];
+const voldemortsArmy = document.getElementById("armyHeader");
 
 
 //////////////// Event Listeners ///////////////
@@ -26,9 +27,9 @@ sortBtn.addEventListener('click', function(e){
         let student = createStudentObject(studentNameForm.value);
         resetInputField();
         studentCards.unshift(student);
-        alphabatize();
+        alphabetize();
         console.log(studentCards);
-        createStudentCard(studentCards);
+        createStudentCard(studentCards, "studentCards");
         // adds an eventListener to each newly created expel button
         for (const expelBtn of expelBtns) {
             expelBtn.addEventListener('click', function(e){
@@ -36,7 +37,10 @@ sortBtn.addEventListener('click', function(e){
                 let expelledStudent = this.parentElement.parentElement.id;
                 console.log("expel", this.parentElement.parentElement.id);
                 expel(expelledStudent);
+                voldemortsArmy.style.display = "block";
+                createStudentCard(expelledStudents, "voldemortsArmy");
                 firstYearForm.style.display = "block";
+                
             })
         } 
     }else {
@@ -76,7 +80,7 @@ const createStudentObject = (name) => {
     return student;
 };
 
-const createStudentCard = (array) => {
+const createStudentCard = (array, divId) => {
     let domString = '';
     array.forEach(student => {
         domString += `<div class="col-12 col-sm-6 col-lg-4">`;
@@ -89,7 +93,7 @@ const createStudentCard = (array) => {
         domString +=    `</div>`;
         domString += `</div>`;
     });
-    printToDom("studentCards", domString);
+    printToDom(divId, domString);
 };
 
 const expel = (studentId) => {
@@ -97,16 +101,17 @@ const expel = (studentId) => {
     console.log("studentCards:", studentCards);
     console.log(studentCards.findIndex(x => x.name === `${studentId}`));
     let expelledStudentIndex = studentCards.findIndex(x => x.name === `${studentId}`);
-    let expelledStudentObject = studentCards.splice(expelledStudentIndex, 1);
-    console.log("ExStObj", expelledStudentObject);
-    expelledStudents.push(expelledStudentObject);
-    console.log("Voldemorts Army", expelledStudents);
+    expelledStudentObject = studentCards.splice(expelledStudentIndex, 1);
+    expelledStudentObject[0].house = "Voldemorts";
+    expelledStudents.push.apply(expelledStudents, expelledStudentObject);
+    console.log("expelledStudents Array:", expelledStudents);
+    console.log("Voldemorts Army house", expelledStudents[0].house);
     let expelledStudent = document.getElementById(studentId);
     expelledStudent.style.display = "none";
     alert(`"${studentId} has been expelled from Hoggy Hoggy Warts!"`)
 };
 
-const alphabatize = () => {
+const alphabetize = () => {
     studentCards.sort(function(a, b){
        var a = a.house.toLowerCase();
      var b = b.house.toLowerCase();

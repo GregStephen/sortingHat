@@ -13,6 +13,16 @@ body {
     padding-bottom: 2em;
     padding-top: 1em;
 }
+
+#voldemortsArmyHeader {
+    text-align: center;
+}
+
+#armyHeader {
+    text-decoration: underline;
+    display: none;
+}
+
 #enterNameH2 {
     margin-bottom: 2em;
 }
@@ -70,4 +80,14 @@ body {
     background-color: #AAAAAA;
     color: #0D6217;
     border: 2px solid #0D6217;
+}
+
+.voldemorts {
+    background-color: black;
+    color: darkred;
+    border: 2px solid darkred;
+}
+
+.voldemorts .expelBtn,  .voldemorts .card-text{
+    display: none;
 }
