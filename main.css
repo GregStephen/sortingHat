@@ -57,7 +57,6 @@ body {
     
 }
 
-
 .hufflepuff {
     background-color: black;
     color: #EEE117;
@@ -90,4 +89,8 @@ body {
 
 .voldemorts .expelBtn,  .voldemorts .card-text{
     display: none;
+}
+
+.modal-body {
+    text-align: center;
 }
