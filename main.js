@@ -11,7 +11,8 @@ let studentNum = 0;
 const studentCards = [];
 const expelledStudents = [];
 const voldemortsArmy = document.getElementById("armyHeader");
-
+const sortByHouseBtn = document.getElementById("houseBtn");
+const sortByNameBtn = document.getElementById("nameBtn");
 
 //////////////// Event Listeners ///////////////
 
@@ -29,11 +30,17 @@ sortBtn.addEventListener('click', function(e){
         let student = createStudentObject(studentNameForm.value);
         resetInputField();
         studentCards.unshift(student);
-        alphabetize("house");
+        console.log("namerdio", sortByNameBtn.checked)
+        console.log("houserdio", sortByHouseBtn.checked)
+        if (sortByNameBtn.checked = true) {
+            alphabetize("name");
+        } else {
+            alphabetize("house");
+        }
         createStudentCard(studentCards, "studentCards");
         // adds an eventListener to each newly created expel button
         addExpelClickListen();
-    }else {
+    } else {
         studentNameForm.className += " error";
         studentNameForm.placeholder = "Please Enter A Name"
     }
@@ -116,27 +123,27 @@ const expel = (studentId) => {
 
 const alphabetize = (key) => {
     studentCards.sort(function(a, b){
-       var a = a[key].toLowerCase();
-     var b = b[key].toLowerCase();
-       if (a < b) 
+        var a = a[key].toLowerCase();
+        var b = b[key].toLowerCase();
+        if (a < b) 
             return -1 
-       if (a > b)
-           return 1
-       return 0 
-   });
+        if (a > b)
+            return 1
+        return 0 
+    });
  };
 
  const createModalBody = (student) => {
-     let domString = "";
-     console.log("student", student);
-     if (student.house === "Slytherin"){
+    let domString = "";
+    console.log("student", student);
+    if (student.house === "Slytherin"){
         domString += `<h3>${student.name} has been expelled from Hoggy Hoggy Warts!</h3>`;
         domString += `<h4>200 points have been deducted from ${student.house}!</h4>`;
         domString += `<hr>`
         domString += `<h6>Oh! ${student.house}! Who would have guessed!?</h6>`;
-     } else {
-     domString += `<h3>${student.name} has been expelled from Hoggy Hoggy Warts!</h3>`;
-     domString += `<h3>200 points have been deducted from ${student.house}!</h3>`;
-     }
-     printToDom("expelledMessage", domString);
+    } else {
+    domString += `<h3>${student.name} has been expelled from Hoggy Hoggy Warts!</h3>`;
+    domString += `<h3>200 points have been deducted from ${student.house}!</h3>`;
+    }
+    printToDom("expelledMessage", domString);
  }
