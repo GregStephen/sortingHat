@@ -5,6 +5,7 @@ const form = document.getElementById("studentForm");
 const error = document.getElementById("error");
 const firstYearForm = document.getElementById("firstYearForm");
 let studentNameForm = document.getElementById("studentName");
+const modalClose = document.getElementById("modalClose");
 const houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
 let studentNum = 0;
 const studentCards = [];
@@ -31,26 +32,34 @@ sortBtn.addEventListener('click', function(e){
         alphabetize("house");
         createStudentCard(studentCards, "studentCards");
         // adds an eventListener to each newly created expel button
-        for (const expelBtn of expelBtns) {
-            expelBtn.addEventListener('click', function(e){
-                e.preventDefault();
-                let expelledStudent = this.parentElement.parentElement.id;
-                expel(expelledStudent);
-                voldemortsArmy.style.display = "block";
-                createStudentCard(studentCards, "studentCards");
-                createStudentCard(expelledStudents, "voldemortsArmy");
-                firstYearForm.style.display = "block"; 
-            })
-        } 
+        addExpelClickListen();
     }else {
         studentNameForm.className += " error";
         studentNameForm.placeholder = "Please Enter A Name"
     }
 });
 
-
+modalClose.addEventListener('click', function(e){
+    e.preventDefault();
+    voldemortsArmy.style.display = "block";
+    createStudentCard(studentCards, "studentCards");
+    createStudentCard(expelledStudents, "voldemortsArmy");
+    firstYearForm.style.display = "block"; 
+    addExpelClickListen();
+});
 
 ///////////// FUNCTIONS ////////////
+
+const addExpelClickListen = () => {
+    for (const expelBtn of expelBtns) {
+        expelBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            let expelledStudent = this.parentElement.parentElement.id;
+            console.log("expelledStd", expelledStudent)
+            expel(expelledStudent);
+        })
+    } 
+};
 
 const printToDom = (divId, textToPrint) => {
     let selectedDiv = document.getElementById(divId);
@@ -86,7 +95,7 @@ const createStudentCard = (array, divId) => {
         domString +=        `<div class="card-body ${student.house.toLowerCase()}">`;
         domString +=            `<h2 class="card-title">${student.name}</h2>`;
         domString +=            `<h4 class="card-text">${student.house}</h4>`;
-        domString +=            `<a href="#" data-toggle="modal" data-target="#exampleModal" class="btn col-sm-6 btn-light expelBtn">Expel</a>`;
+        domString +=            `<a href="#" data-toggle="modal" data-target="#areYouSureModal" class="btn col-sm-6 btn-light expelBtn">Expel</a>`;
         domString +=        `</div>`;
         domString +=    `</div>`;
         domString += `</div>`;
@@ -96,13 +105,13 @@ const createStudentCard = (array, divId) => {
 
 const expel = (studentId) => {
     let expelledStudentIndex = studentCards.findIndex(x => x.id === `${studentId}`);
-    // expelledStudentArray = studentCards.splice(expelledStudentIndex, 1).pop();
-    // let expelledStudentObj = expelledStudentArray.pop();
-    let expelledStudentObj = studentCards.splice(expelledStudentIndex, 1).pop();
+    console.log ("index", expelledStudentIndex);
+    let expelledStudentArray = studentCards.splice(expelledStudentIndex, 1);
+    console.log("obj", expelledStudentArray[0]);
+    let expelledStudentObj = expelledStudentArray[0];
     createModalBody(expelledStudentObj);
     expelledStudentObj.house = "Voldemorts"; 
     expelledStudents.push(expelledStudentObj);
-    
 };
 
 const alphabetize = (key) => {
@@ -119,7 +128,15 @@ const alphabetize = (key) => {
 
  const createModalBody = (student) => {
      let domString = "";
+     console.log("student", student);
+     if (student.house === "Slytherin"){
+        domString += `<h3>${student.name} has been expelled from Hoggy Hoggy Warts!</h3>`;
+        domString += `<h4>200 points have been deducted from ${student.house}!</h4>`;
+        domString += `<hr>`
+        domString += `<h6>Oh! ${student.house}! Who would have guessed!?</h6>`;
+     } else {
      domString += `<h3>${student.name} has been expelled from Hoggy Hoggy Warts!</h3>`;
      domString += `<h3>200 points have been deducted from ${student.house}!</h3>`;
+     }
      printToDom("expelledMessage", domString);
  }

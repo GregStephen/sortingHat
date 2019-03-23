@@ -47,12 +47,31 @@
             
         </div>
     </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="areYouSureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Off WITH YOU</h5>
+              <h5 class="modal-title" id="areYouSureModalLabel">Are you sure?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="areYouSureMessage" class="modal-body">
+              <h3>Do you really want to expell this student?</h3>
+              <h3>This cannot be undone!</h3>
+            </div>
+            <div class="modal-footer">
+              <button id="noWait" type="button" class="btn btn-danger" data-dismiss="modal">No, Wait!</button>
+              <button id="expellThem" type="button" class="btn btn-success" data-toggle="modal" data-target="#expelledModal"data-dismiss="modal">EXPELL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="modal fade" id="expelledModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="expelledModalLabel">OFF WITH YOU</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -61,7 +80,7 @@
               
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="modalClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
