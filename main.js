@@ -6,6 +6,7 @@ const error = document.getElementById("error");
 const firstYearForm = document.getElementById("firstYearForm");
 let studentNameForm = document.getElementById("studentName");
 const houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
+let studentNum = 0;
 const studentCards = [];
 const expelledStudents = [];
 const voldemortsArmy = document.getElementById("armyHeader");
@@ -27,21 +28,18 @@ sortBtn.addEventListener('click', function(e){
         let student = createStudentObject(studentNameForm.value);
         resetInputField();
         studentCards.unshift(student);
-        alphabetize();
-        console.log(studentCards);
+        alphabetize("house");
         createStudentCard(studentCards, "studentCards");
         // adds an eventListener to each newly created expel button
         for (const expelBtn of expelBtns) {
             expelBtn.addEventListener('click', function(e){
                 e.preventDefault();
                 let expelledStudent = this.parentElement.parentElement.id;
-                console.log("expel", this.parentElement.parentElement.id);
                 expel(expelledStudent);
                 voldemortsArmy.style.display = "block";
                 createStudentCard(studentCards, "studentCards");
                 createStudentCard(expelledStudents, "voldemortsArmy");
-                firstYearForm.style.display = "block";
-                
+                firstYearForm.style.display = "block"; 
             })
         } 
     }else {
@@ -70,12 +68,11 @@ const resetInputField = () => {
     studentNameForm.value = "";
 }; 
 
-console.log(getRandomNum(4));
-console.log(houses[getRandomNum(4)]);
-
 const createStudentObject = (name) => {
+    studentNum += 1;
     let student = {};
     let house = houses[getRandomNum(4)];
+    student.id = studentNum.toString();
     student.name = name;
     student.house = house;
     return student;
@@ -85,11 +82,11 @@ const createStudentCard = (array, divId) => {
     let domString = '';
     array.forEach(student => {
         domString += `<div class="col-12 col-sm-6 col-lg-4">`;
-        domString +=    `<div id="${student.name}" class="card">`;
+        domString +=    `<div id="${student.id}" class="card">`;
         domString +=        `<div class="card-body ${student.house.toLowerCase()}">`;
         domString +=            `<h2 class="card-title">${student.name}</h2>`;
         domString +=            `<h4 class="card-text">${student.house}</h4>`;
-        domString +=            `<a href="#" class="btn col-sm-6 btn-light expelBtn">Expel</a>`;
+        domString +=            `<a href="#" data-toggle="modal" data-target="#exampleModal" class="btn col-sm-6 btn-light expelBtn">Expel</a>`;
         domString +=        `</div>`;
         domString +=    `</div>`;
         domString += `</div>`;
@@ -98,26 +95,31 @@ const createStudentCard = (array, divId) => {
 };
 
 const expel = (studentId) => {
-    console.log("studentId:", studentId )
-    console.log("studentCards:", studentCards);
-    console.log(studentCards.findIndex(x => x.name === `${studentId}`));
-    let expelledStudentIndex = studentCards.findIndex(x => x.name === `${studentId}`);
-    expelledStudentObject = studentCards.splice(expelledStudentIndex, 1);
-    expelledStudentObject[0].house = "Voldemorts";
-    expelledStudents.push.apply(expelledStudents, expelledStudentObject);
-    console.log("expelledStudents Array:", expelledStudents);
-    console.log("Voldemorts Army house", expelledStudents[0].house);
-    alert(`"${studentId} has been expelled from Hoggy Hoggy Warts!"`)
+    let expelledStudentIndex = studentCards.findIndex(x => x.id === `${studentId}`);
+    // expelledStudentArray = studentCards.splice(expelledStudentIndex, 1).pop();
+    // let expelledStudentObj = expelledStudentArray.pop();
+    let expelledStudentObj = studentCards.splice(expelledStudentIndex, 1).pop();
+    createModalBody(expelledStudentObj);
+    expelledStudentObj.house = "Voldemorts"; 
+    expelledStudents.push(expelledStudentObj);
+    
 };
 
-const alphabetize = () => {
+const alphabetize = (key) => {
     studentCards.sort(function(a, b){
-       var a = a.house.toLowerCase();
-     var b = b.house.toLowerCase();
-       if (a < b) //sort string ascending
+       var a = a[key].toLowerCase();
+     var b = b[key].toLowerCase();
+       if (a < b) 
             return -1 
        if (a > b)
            return 1
-       return 0 //default return value (no sorting)
+       return 0 
    });
  };
+
+ const createModalBody = (student) => {
+     let domString = "";
+     domString += `<h3>${student.name} has been expelled from Hoggy Hoggy Warts!</h3>`;
+     domString += `<h3>200 points have been deducted from ${student.house}!</h3>`;
+     printToDom("expelledMessage", domString);
+ }
