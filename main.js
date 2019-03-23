@@ -38,6 +38,7 @@ sortBtn.addEventListener('click', function(e){
                 console.log("expel", this.parentElement.parentElement.id);
                 expel(expelledStudent);
                 voldemortsArmy.style.display = "block";
+                createStudentCard(studentCards, "studentCards");
                 createStudentCard(expelledStudents, "voldemortsArmy");
                 firstYearForm.style.display = "block";
                 
@@ -106,8 +107,6 @@ const expel = (studentId) => {
     expelledStudents.push.apply(expelledStudents, expelledStudentObject);
     console.log("expelledStudents Array:", expelledStudents);
     console.log("Voldemorts Army house", expelledStudents[0].house);
-    let expelledStudent = document.getElementById(studentId);
-    expelledStudent.style.display = "none";
     alert(`"${studentId} has been expelled from Hoggy Hoggy Warts!"`)
 };
 
