@@ -26,6 +26,7 @@ sortBtn.addEventListener('click', function(e){
         let student = createStudentObject(studentNameForm.value);
         resetInputField();
         studentCards.unshift(student);
+        alphabatize();
         console.log(studentCards);
         createStudentCard(studentCards);
         // adds an eventListener to each newly created expel button
@@ -104,3 +105,15 @@ const expel = (studentId) => {
     expelledStudent.style.display = "none";
     alert(`"${studentId} has been expelled from Hoggy Hoggy Warts!"`)
 };
+
+const alphabatize = () => {
+    studentCards.sort(function(a, b){
+       var a = a.house.toLowerCase();
+     var b = b.house.toLowerCase();
+       if (a < b) //sort string ascending
+            return -1 
+       if (a > b)
+           return 1
+       return 0 //default return value (no sorting)
+   });
+ };
