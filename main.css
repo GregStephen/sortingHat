@@ -13,7 +13,10 @@ body {
     padding-bottom: 2em;
     padding-top: 1em;
 }
-
+.sortByBtns {
+    margin-top: 1em;
+    padding-left: 0;
+}
 #voldemortsArmyHeader {
     text-align: center;
 }
