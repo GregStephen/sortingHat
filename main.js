@@ -25,43 +25,6 @@ const sortByHouseBtn = document.getElementById("houseBtn");
 const sortByNameBtn = document.getElementById("nameBtn");
 
 
-////////////////////////////////////////////////
-//////////////// Event Listeners ///////////////
-////////////////////////////////////////////////
-
-
-startSortBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    displayDiv(firstYearForm);
-    addRadioClickListen();
-});
-
-sortBtn.addEventListener('click', function (e) {
-    // checks to see if the input is not empty
-    if (form.checkValidity()) {
-        e.preventDefault();
-        e.stopPropagation();
-        addStudentToArray();
-        resetInputField();
-        checkRadioBtn();
-        createStudentCard(studentCards, "studentCards");
-        // adds an eventListener to each newly created expel button
-        addExpelClickListen();
-    } else {
-        callError();
-    }
-});
-
-modalClose.addEventListener('click', function (e) {
-    e.preventDefault();
-    displayDiv(voldemortsArmy);
-    createStudentCard(studentCards, "studentCards");
-    createStudentCard(expelledStudents, "voldemortsArmy");
-    displayDiv(firstYearForm);
-    addExpelClickListen();
-});
-
-
 ////////////////////////////////////////////
 ///////////////// FUNCTIONS ////////////////
 ////////////////////////////////////////////
@@ -106,25 +69,16 @@ const createStudentCard = (array, divId) => {
     let domString = '';
     array.forEach(student => {
         domString += `<div class="col-12 col-sm-6 col-lg-4">`;
-        domString += `<div id="${student.id}" class="card">`;
-        domString += `<div class="card-body ${student.house.toLowerCase()}">`;
-        domString += `<h2 class="card-title">${student.name}</h2>`;
-        domString += `<h4 class="card-text">${student.house}</h4>`;
-        domString += `<a href="#" data-toggle="modal" data-target="#areYouSureModal" class="btn col-sm-6 btn-light expelBtn">Expel</a>`;
-        domString += `</div>`;
-        domString += `</div>`;
+        domString += `  <div class="card">`;
+        domString += `      <div class="card-body ${student.house.toLowerCase()}">`;
+        domString += `          <h2 class="card-title">${student.name}</h2>`;
+        domString += `          <h4 class="card-text">${student.house}</h4>`;
+        domString += `          <a href="#" data-toggle="modal" data-target="#areYouSureModal" id="${student.id}" class="btn col-sm-6 btn-light expelBtn">Expel</a>`;
+        domString += `      </div>`;
+        domString += `  </div>`;
         domString += `</div>`;
     });
     printToDom(divId, domString);
-};
-
-const expel = (studentId) => {
-    let expelledStudentIndex = studentCards.findIndex(x => x.id === `${studentId}`);
-    let expelledStudentArray = studentCards.splice(expelledStudentIndex, 1);
-    let expelledStudentObj = expelledStudentArray[0];
-    createModalBody(expelledStudentObj);
-    expelledStudentObj.house = "Voldemorts";
-    expelledStudents.push(expelledStudentObj);
 };
 
 const alphabetize = (key) => {
@@ -139,35 +93,11 @@ const alphabetize = (key) => {
     });
 };
 
-const addExpelClickListen = () => {
-    for (const expelBtn of expelBtns) {
-        expelBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            let expelledStudent = this.parentElement.parentElement.id;
-            expel(expelledStudent);
-        })
-    }
-};
-
 const checkRadioBtn = () => {
     if (sortByNameBtn.checked = true) {
         alphabetize("name");
     } else {
         alphabetize("house");
-    }
-};
-
-const addRadioClickListen = () => {
-    for (const radioBtn of radios) {
-        radioBtn.addEventListener('click', function () {
-            if (this.value === "house") {
-                alphabetize("house");
-            } else {
-                alphabetize("name");
-            }
-            createStudentCard(studentCards, "studentCards");
-            addExpelClickListen();
-        })
     }
 };
 
@@ -189,3 +119,91 @@ const callError = () => {
     studentNameForm.className += " error";
     studentNameForm.placeholder = "Please Enter A Name"
 };
+
+
+////////////////////////////////////////////////
+//////////////// Event Listeners ///////////////
+////////////////////////////////////////////////
+
+const startSortFunction = (e) => {
+    e.preventDefault();
+    displayDiv(firstYearForm);
+    addRadioClickListen();
+};
+
+const sortFunction = (e) => {
+    if (form.checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
+        addStudentToArray();
+        resetInputField();
+        checkRadioBtn();
+        createStudentCard(studentCards, "studentCards");
+        // adds an eventListener to each newly created expel button
+        addExpelClickListen();
+    } else {
+        callError();
+    }
+};
+
+const modalFunction = (e) => {
+    e.preventDefault();
+    displayDiv(voldemortsArmy);
+    createStudentCard(studentCards, "studentCards");
+    createStudentCard(expelledStudents, "voldemortsArmy");
+    displayDiv(firstYearForm);
+    addExpelClickListen();
+};
+
+const expelFunction = (e) => {
+    const buttonId = e.target.id;
+    studentCards.forEach((student, index) => {
+        if(student.id === buttonId){
+           let expelledStudentArray = studentCards.splice(index, 1);
+           let expelledStudentObj = expelledStudentArray[0];
+            createModalBody(expelledStudentObj);
+            expelledStudentObj.house = "Voldemorts";
+            expelledStudents.push(expelledStudentObj);
+        }
+    })
+};
+
+const radioBtnFunction = (e) => {
+    if (e.target.value === "house") {
+        alphabetize("house");
+    } else {
+        alphabetize("name");
+    }
+    createStudentCard(studentCards, "studentCards");
+    addExpelClickListen();
+};
+
+const addRadioClickListen = () => {
+    for (const radioBtn of radios) {
+        radioBtn.addEventListener('click', radioBtnFunction); 
+    }
+};
+
+const addExpelClickListen = () => {
+    for (const expelBtn of expelBtns) {
+        expelBtn.addEventListener('click', expelFunction);
+    }
+};
+
+const eventListeners = () => {
+    startSortBtn.addEventListener('click', startSortFunction);
+    sortBtn.addEventListener('click', sortFunction);
+    modalClose.addEventListener('click', modalFunction);
+};
+
+
+////////////////////////////////////////////
+//////////////////// INIT //////////////////
+////////////////////////////////////////////
+
+
+const init = () => {
+    eventListeners();
+};
+
+init();
