@@ -94,7 +94,7 @@ const alphabetize = (key) => {
 };
 
 const checkRadioBtn = () => {
-    if (sortByNameBtn.checked = true) {
+    if (sortByNameBtn.checked === true) {
         alphabetize("name");
     } else {
         alphabetize("house");
