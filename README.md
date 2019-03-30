@@ -28,6 +28,13 @@ Then they join voldemorts army!:
 No surprise if you expell a slytherin though:
 ![Slytherin Surprise](./assets/screenshots/slytherin_expelled.png)
 
+
+## Tech Used
+* HTML
+* CSS
+* Javascript 
+
+
 ## How To Run
 1. Go to: `https://www.npmjs.com/package/http-server` and install "http-server".  
 2. Navigate to the project folder in command line interface and type: `http-server -p 8080`  
