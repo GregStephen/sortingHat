@@ -14,7 +14,7 @@ Here is the students sorted by name:
 ![Sorted By Name](./assets/screenshots/sort_by_name.png)
 
 Here is the students sorted by house:
-![Sorted By House](./assets/screenshots/sorted_by_house.png)
+![Sorted By House](./assets/screenshots/sort_by_house.png)
 
 When you click expel it asks if you are sure, THERE IS NO GOING BACK! :
 ![Are You Sure?](./assets/screenshots/are_you_sure.png)
